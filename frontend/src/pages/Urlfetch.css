@@ -1,35 +1,72 @@
-.container {
-    max-width: 600px;
-    margin: auto;
+body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to the top for scrolling */
+    min-height: 100vh; /* Ensure it takes full height */
+    margin: 0;
     padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.9); /* Slight transparency */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
     text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: xx-large;
+    margin-bottom: 20px;
 }
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 20px;
 }
 
 .input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 2px solid #fff;
+    border-radius: 8px;
     font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+.input:hover, .input:focus {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    border-color: red;
 }
 
 .button {
-    padding: 10px;
-    background: #007bff;
+    padding: 12px;
+    background: red;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 .button:disabled {
@@ -45,10 +82,20 @@
 .repo-details {
     text-align: left;
     margin-top: 20px;
-    padding: 15px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background: linear-gradient(135deg, #1a1a1a, #333);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    border: 1px solid #444;
+    font-family: 'Arial', sans-serif;
+    color: #ddd;
+    line-height: 1.6;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.repo-details:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
 }
 
 .contributors {
@@ -59,13 +106,63 @@
 .contributor {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.contributor:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    border: 2px solid #ddd;
+    border: 2px solid red;
+}
+
+a {
+    color: #ff4d4d;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+a:hover {
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: red;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff4d4d;
+}
+
+.chart-container {
+    max-width: 400px; /* Limit width */
+    margin: 20px auto; /* Centering */
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+canvas {
+    max-width: 100%;
+    height: auto !important;
 }

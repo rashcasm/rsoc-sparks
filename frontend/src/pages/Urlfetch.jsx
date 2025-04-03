@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Bar, Pie, Line } from 'react-chartjs-2';
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
 import './Urlfetch.css';
+
+// Register necessary Chart.js components
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend);
 
 const Urlfetch = () => {
     const [repoUrl, setRepoUrl] = useState('');
@@ -28,11 +33,13 @@ const Urlfetch = () => {
             const repoData = await fetchRepoDetails(repoPath);
             const contributors = await fetchContributors(repoPath);
             const issueTrends = await fetchIssueTrends(repoPath);
+            const languages = await fetchLanguages(repoPath);
 
             setRepoDetails({
                 ...repoData,
                 contributors,
                 issueTrends,
+                languages,
             });
         } catch (err) {
             setError(err.message || 'Failed to fetch repository details. Please try again.');
@@ -89,6 +96,19 @@ const Urlfetch = () => {
         }, { opened: {}, closed: {} });
     };
 
+    const fetchLanguages = async (repoPath) => {
+        const response = await fetch(`https://api.github.com/repos/${repoPath}/languages`);
+        if (!response.ok) return {};
+        return await response.json();
+    };
+
+    const calculateRepoHealthScore = () => {
+        if (!repoDetails) return 0;
+        const { stars, forks, openIssues, watchers } = repoDetails;
+        const score = (stars * 0.4 + forks * 0.3 + watchers * 0.2 - openIssues * 0.1);
+        return Math.max(0, Math.min(100, Math.round(score)));
+    };
+
     return (
         <div className="container">
             <form onSubmit={handleSubmit} className="form">
@@ -119,19 +139,17 @@ const Urlfetch = () => {
                         </ul>
                     ) : <p>No contributors found.</p>}
                     
-                    <h3>Issue Trends</h3>
-                    <h4>Opened Issues</h4>
-                    <ul>
-                        {Object.entries(repoDetails.issueTrends.opened).map(([month, count]) => (
-                            <li key={month}>{month}: {count} issues</li>
-                        ))}
-                    </ul>
-                    <h4>Closed Issues</h4>
-                    <ul>
-                        {Object.entries(repoDetails.issueTrends.closed).map(([month, count]) => (
-                            <li key={month}>{month}: {count} issues</li>
-                        ))}
-                    </ul>
+                    <h3>Languages Used</h3>
+<div className="chart-container">
+    <Pie data={{ labels: Object.keys(repoDetails.languages), datasets: [{ data: Object.values(repoDetails.languages), backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'], }] }} />
+</div>
+
+<h3>Issue Trends</h3>
+<div className="chart-container">
+    <Line data={{ labels: Object.keys(repoDetails.issueTrends.opened), datasets: [{ label: 'Opened Issues', data: Object.values(repoDetails.issueTrends.opened), borderColor: '#FF6384', fill: false }, { label: 'Closed Issues', data: Object.values(repoDetails.issueTrends.closed), borderColor: '#36A2EB', fill: false }] }} />
+</div>
+                    <h3>Summary Report</h3>
+                    <p>Repo Health Score: {calculateRepoHealthScore()} / 100</p>
                 </div>
             )}
         </div>
