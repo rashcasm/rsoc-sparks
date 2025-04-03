@@ -123,7 +123,7 @@ const Urlfetch = () => {
                     <h2>{repoDetails.name} ({repoDetails.visibility})</h2>
                     <p>Owner: {repoDetails.owner}</p>
                     <p>{repoDetails.description}</p>
-                    <p>⭐ Stars: {repoDetails.stars} | 🍴 Forks: {repoDetails.forks} | 👀 Watchers: {repoDetails.watchers} | 🛠 Open Issues: {repoDetails.openIssues}</p>
+                    <p className='stats'>⭐ Stars: {repoDetails.stars} | 🍴 Forks: {repoDetails.forks} | 👀 Watchers: {repoDetails.watchers} | 🛠 Open Issues: {repoDetails.openIssues}</p>
                     <p>Last Updated: {repoDetails.lastUpdated}</p>
                     <p><a href={repoDetails.cloneUrl} target="_blank" rel="noopener noreferrer">Clone Repository</a></p>
                     

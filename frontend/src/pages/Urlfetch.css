@@ -166,3 +166,8 @@ canvas {
     max-width: 100%;
     height: auto !important;
 }
+.stats {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: white; /* Ensure visibility on dark background */
+}
