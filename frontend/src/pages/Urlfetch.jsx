@@ -121,7 +121,7 @@ const Urlfetch = () => {
             {repoDetails && (
                 <div className="repo-details">
                     <h2>{repoDetails.name} ({repoDetails.visibility})</h2>
-                    <p>Owner: {repoDetails.owner}</p>
+                    <p className='stats'>Owner: {repoDetails.owner}</p>
                     <p>{repoDetails.description}</p>
                     <p className='stats'>⭐ Stars: {repoDetails.stars} | 🍴 Forks: {repoDetails.forks} | 👀 Watchers: {repoDetails.watchers} | 🛠 Open Issues: {repoDetails.openIssues}</p>
                     <p>Last Updated: {repoDetails.lastUpdated}</p>
